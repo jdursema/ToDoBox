@@ -1,0 +1,58 @@
+/*Body Styling*/
+body {
+	background-color: #E5F3F2;
+	font-family: 'Open Sans', Arial, sans-serif;
+	margin: 0;
+	width: 100%;
+}
+
+h1, h3, .quality {
+	color: #6D6E71;
+	font-family: 'Roboto Slab', Georgia, serif;
+}
+
+/*Top Section*/
+.idea-box-header {
+	font-size: 3.5vw;
+	margin: 20px auto;
+	text-align: center;
+}
+
+.idea-header {
+	color: #00A79D;
+}
+
+input {
+	box-sizing: border-box;
+	font-size: 1.5vw;
+	margin: 10px 25%;
+	padding-left: 5px;
+	width: 50%;
+}
+
+.save-button {
+	color: #FFF;
+	background-color: #00A79D;
+	border: none;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+
+.top-section {
+	margin: 0 auto;
+}
+
+/*Bottom Section*/
+article {
+	margin: 10px 25%;
+	width: 50%;
+}
+
+.bottom-section {
+	background-color: #FFF;
+	height: 100vh;
+}
+
+.search-bar {
+	margin-top: 20px;
+}
