@@ -1,3 +1,4 @@
+
 $('.save-button').on('click', function(event){
 	event.preventDefault();
 	var ideaTitle = $('#title-input').val();
@@ -18,3 +19,15 @@ function newCard(title, body) {
 		`
 		);
 }
+//Delete Button Function
+$('.bottom-section').on('click', '#delete-button', function(){
+	$(this).closest('article').remove();
+});
+
+//Local Storage
+
+// localStorage.setItem('ID Local Storage Knows', myObject);
+// Date.now()
+// localStorage.getItem(myObject.id)
+// v
+
