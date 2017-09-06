@@ -40,21 +40,21 @@ function changeRank(direction, currentRank) {
 	var rankArray = ['swill', 'plausible', 'genius'];
 	var increment = direction === 'down'? -1:1;
 	var currentIndex = rankArray.indexOf(currentRank);
-	if (currentIndex = 0) {
-		currentIndex = currentIndex + increment;
+	if (currentRank + increment < 0 || currentRank + increment > rankArray.length - 1) {
+		return rankArray[currentIndex];
+	} else {
+		return rankArray[currentIndex + increment];
 	}
-	console.log(currentIndex);
-	console.log(direction);
-	console.log(currentRank);
-	console.log(increment);
 
 }
 
 $('.bottom-section').on('click', '#up-vote-button', function() {
-	changeRank ('up',$(this).siblings('span').text()); 
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
 })
 
 
 $('.bottom-section').on('click', '#down-vote-button', function() {
-	changeRank ('down',$(this).siblings('span').text()); 
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
 })
