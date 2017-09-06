@@ -1,23 +1,33 @@
+$(document).ready(function() {
+    console.log(localStorage);
+    
+});
+
 
 $('.save-button').on('click', function(event){
 	event.preventDefault();
-	var ideaTitle = $('#title-input').val();
-	var ideaBody = $('#body-input').val();
-	newCard(ideaTitle, ideaBody); 
+	var idea = {
+		title: $('#title-input').val(),
+		body: $('#body-input').val(),
+		quality: 'swill',
+		id: Date.now()
+	}
+	storeIdea(idea);
+	newCard(idea); 
 });
 
-function newCard(title, body) {
+function newCard(idea) {
 	$(".idea-box").prepend( `
-		<article class="idea-card">
-			<h3 class="idea-title">${title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
+		<article id=${idea.id} class="idea-card">
+			<h3 class="idea-title">${idea.title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
 			<p class="idea-body">
-				${body}
+				${idea.body}
 			</p>
-			<p class="quality"><input type="image" alt="idea up vote button" src="images/upvote.svg" class="card-button">
-			<input type="image" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">swill</span></p>
+			<p class="quality"><input type="image" id="up-vote-button" alt="idea up vote button" src="images/upvote.svg" class="card-button">
+			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">${idea.quality}</span></p>
 		</article>
 		`
-		);
+	);
 }
 //Delete Button Function
 $('.bottom-section').on('click', '#delete-button', function(){
@@ -31,3 +41,41 @@ $('.bottom-section').on('click', '#delete-button', function(){
 // localStorage.getItem(myObject.id)
 // v
 
+//To save old ideas:
+//First needs to look at localStorage to see if there are ideas.
+//If ideas are present, they are shown in lower half, represented as cards.
+
+//For new idea:
+//Get input from user: Title and the Body.
+//Make a new card with those values.
+//When card is created, it needs a unique value, based on when card when
+//card was created and/or content of card.
+//Pass unique value created to localStorage to pull from.
+
+function storeIdea (potato) {
+	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
+	console.log(localStorage);
+}
+
+function changeRank(direction, currentRank) {
+	var rankArray = ['swill', 'plausible', 'genius'];
+	var increment = direction === 'down'? -1:1;
+	var currentIndex = rankArray.indexOf(currentRank);
+	if (currentRank + increment < 0 || currentRank + increment > rankArray.length - 1) {
+		return rankArray[currentIndex];
+	} else {
+		return rankArray[currentIndex + increment];
+	}
+
+}
+
+$('.bottom-section').on('click', '#up-vote-button', function() {
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
+})
+
+
+$('.bottom-section').on('click', '#down-vote-button', function() {
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
+})
