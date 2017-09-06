@@ -14,10 +14,11 @@ function newCard(title, body) {
 				${body}
 			</p>
 			<p class="quality"><input type="image" alt="idea up vote button" src="images/upvote.svg" class="card-button">
-			<input type="image" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">swill</span></p>
+			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">swill</span></p>
 		</article>
 		`
-		);
+	);
+	lowerQuality();
 }
 //Delete Button Function
 $('.bottom-section').on('click', '#delete-button', function(){
@@ -31,3 +32,8 @@ $('.bottom-section').on('click', '#delete-button', function(){
 // localStorage.getItem(myObject.id)
 // v
 
+function lowerQuality() {
+	var downVoteButton = $('#down-vote-button').on('click', function() {
+		$('.idea-rank').text('booty');
+	})
+} 
