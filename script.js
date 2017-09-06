@@ -33,14 +33,21 @@ $('.bottom-section').on('click', '#delete-button', function(){
 
 // what button pressed? Are we gpomg up or down in rank? What is current rank? What is it's index? Add or subtract.
 //If at top or bottom, doesn't do anything.
+//If at bottom, up click changes array position and value.
+//If at top, bottom click changes array position and value.
 
 function changeRank(direction, currentRank) {
 	var rankArray = ['swill', 'plausible', 'genius'];
 	var increment = direction === 'down'? -1:1;
-	rankArray.indexOf(currentRank);
+	var currentIndex = rankArray.indexOf(currentRank);
+	if (currentIndex = 0) {
+		currentIndex = currentIndex + increment;
+	}
+	console.log(currentIndex);
 	console.log(direction);
 	console.log(currentRank);
 	console.log(increment);
+
 }
 
 $('.bottom-section').on('click', '#up-vote-button', function() {
