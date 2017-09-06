@@ -1,20 +1,30 @@
+$(document).ready(function() {
+    console.log(localStorage);
+    
+});
+
 
 $('.save-button').on('click', function(event){
 	event.preventDefault();
-	var ideaTitle = $('#title-input').val();
-	var ideaBody = $('#body-input').val();
-	newCard(ideaTitle, ideaBody); 
+	var idea = {
+		title: $('#title-input').val(),
+		body: $('#body-input').val(),
+		quality: 'swill',
+		id: Date.now()
+	}
+	storeIdea(idea);
+	newCard(idea); 
 });
 
-function newCard(title, body) {
+function newCard(idea) {
 	$(".idea-box").prepend( `
-		<article class="idea-card">
-			<h3 class="idea-title">${title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
+		<article id=${idea.id} class="idea-card">
+			<h3 class="idea-title">${idea.title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
 			<p class="idea-body">
-				${body}
+				${idea.body}
 			</p>
 			<p class="quality"><input type="image" id="up-vote-button" alt="idea up vote button" src="images/upvote.svg" class="card-button">
-			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">swill</span></p>
+			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">${idea.quality}</span></p>
 		</article>
 		`
 	);
@@ -31,10 +41,21 @@ $('.bottom-section').on('click', '#delete-button', function(){
 // localStorage.getItem(myObject.id)
 // v
 
-// what button pressed? Are we gpomg up or down in rank? What is current rank? What is it's index? Add or subtract.
-//If at top or bottom, doesn't do anything.
-//If at bottom, up click changes array position and value.
-//If at top, bottom click changes array position and value.
+//To save old ideas:
+//First needs to look at localStorage to see if there are ideas.
+//If ideas are present, they are shown in lower half, represented as cards.
+
+//For new idea:
+//Get input from user: Title and the Body.
+//Make a new card with those values.
+//When card is created, it needs a unique value, based on when card when
+//card was created and/or content of card.
+//Pass unique value created to localStorage to pull from.
+
+function storeIdea (potato) {
+	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
+	console.log(localStorage);
+}
 
 function changeRank(direction, currentRank) {
 	var rankArray = ['swill', 'plausible', 'genius'];
