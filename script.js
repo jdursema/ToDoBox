@@ -25,6 +25,9 @@ function storeIdea (potato) {
 /*Delete Card Button*/
 $('.bottom-section').on('click', '#delete-button', function(){
 	$(this).closest('article').remove();
+	var getId = $(this).closest('article').attr('id');
+	var potatoId = 'potato-' + getId;
+	localStorage.removeItem(potatoId);
 });
 
 $('.save-button').on('click', function(event){
