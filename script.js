@@ -53,7 +53,7 @@ $('.bottom-section').on('click', '#down-vote-button', function() {
 $('.search-bar').on('keyup', function(){
 	var userInput = $(this).val();
 	$('.idea-card').each(function(index, card){
-		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase())) {
+		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase()) || $(this).children('.idea-body').text().toLowerCase().includes(userInput.toLowerCase())) {
 			$(this).show()
 		} else {
 			$(this).hide()
