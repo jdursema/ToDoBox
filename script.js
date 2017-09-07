@@ -1,19 +1,21 @@
 $(document).ready(function() {
     console.log(localStorage);
-    // localStorage.forEach(function (idea, i) {
-    // 	console.log(idea, i);
-    // })
-
-    // newCard(getIdeas(idea));
+    getIdeas();
 });
 
-function getIdeas(rhubarb) {
-	var oldIdea = localStorage.getItem("potato-" + rhubarb.id);
-	var parsedIdea = JSON.parse(oldIdea);
-	console.log(parsedIdea);
-	return parsedIdea;
+function getIdeas () {
+	for(var i in localStorage) {
+		var oldIdea = localStorage[i];
+		var parsedIdea = JSON.parse(oldIdea);
+		newCard(parsedIdea);
+	}
 }
 
+// function getIdeas(rhubarb) {
+// 	var oldIdea = localStorage.getItem("potato-" + rhubarb.id);
+// 	var parsedIdea = JSON.parse(oldIdea);
+// 	console.log(parsedIdea.title);
+// }
 
 $('.save-button').on('click', function(event){
 	event.preventDefault();
