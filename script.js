@@ -90,6 +90,20 @@ function changeRank(direction, currentRank) {
 	};
 }
 
+//Search Function 
+$('.search-bar').on('keyup', function(){
+	var userInput = $(this).val();
+	$('.idea-card').each(function(index, card){
+		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase())) {
+			$(this).show()
+		} else {
+			$(this).hide()
+		}
+	})
+});
+
+
+
 ////////////NOTES////////////
 
 // localStorage.setItem('ID Local Storage Knows', myObject);
