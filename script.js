@@ -62,8 +62,8 @@ function newCard(idea) {
 			<p class="idea-body">
 				${idea.body}
 			</p>
-			<p class="quality"><input type="image" id="up-vote-button" alt="idea up vote button" src="images/upvote.svg" class="card-button">
-			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">${idea.quality}</span></p>
+			<p class="quality"><span id="up-vote-button" class="card-button"></span>
+			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.quality}</span></p>
 		</article>
 		`
 	);
