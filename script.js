@@ -58,7 +58,7 @@ $('.bottom-section').on('click', '#up-vote-button', function() {
 function newCard(idea) {
 	$(".idea-box").prepend( `
 		<article id=${idea.id} class="idea-card">
-			<h3 class="idea-title">${idea.title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
+			<h3 class="idea-title">${idea.title}<span id="delete-button"></span></h3>
 			<p class="idea-body">
 				${idea.body}
 			</p>

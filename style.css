@@ -73,9 +73,17 @@ article {
 }
 
 #delete-button {
+	background-image: url(images/delete.svg);
+	background-repeat: no-repeat;
 	display: inline-block;
 	float: right;
+	height: 25px;
 	margin: 0;
+	width: 25px;
+}
+
+#delete-button:hover {
+	background-image: url(images/delete-hover.svg);
 }
 
 #down-vote-button {
