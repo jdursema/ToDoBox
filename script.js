@@ -49,6 +49,18 @@ $('.bottom-section').on('click', '#down-vote-button', function() {
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
 })
 
+/*Search Evebnt Listener*/
+$('.search-bar').on('keyup', function(){
+	var userInput = $(this).val();
+	$('.idea-card').each(function(index, card){
+		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase())) {
+			$(this).show()
+		} else {
+			$(this).hide()
+		}
+	})
+});
+
 /*Up Vote Button*/
 $('.bottom-section').on('click', '#up-vote-button', function() {
 	var $qualitySpan = $(this).siblings('.idea-rank');
@@ -89,20 +101,6 @@ function changeRank(direction, currentRank) {
 		return rankArray[currentIndex + increment];
 	};
 }
-
-//Search Function 
-$('.search-bar').on('keyup', function(){
-	var userInput = $(this).val();
-	$('.idea-card').each(function(index, card){
-		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase())) {
-			$(this).show()
-		} else {
-			$(this).hide()
-		}
-	})
-});
-
-
 
 ////////////NOTES////////////
 

@@ -128,3 +128,40 @@ article {
 #up-vote-button:hover {
 	background-image: url(images/upvote-hover.svg);
 }
+
+/*Media Queries*/
+@media screen and (max-width:1100px) {
+	article {
+		margin: 10px 15%;
+		width: 70%;
+	}
+
+	.main-inputs {
+		margin: 10px 15%;
+		width: 70%;
+	}
+}
+
+@media screen and (max-width:750px) {
+	article {
+		margin: 10px 10%;
+		width: 80%;
+	}
+
+	.main-inputs {
+		margin: 10px 10%;
+		width: 80%;
+	}
+}
+
+@media screen and (max-width:500px) {
+	article {
+		margin: 10px 5%;
+		width: 90%;
+	}
+
+	.main-inputs {
+		margin: 10px 5%;
+		width: 90%;
+	}
+}
