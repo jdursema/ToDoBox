@@ -1,8 +1,12 @@
+////*ON LOAD TRIGGERS*////
 $(document).ready(function() {
     console.log(localStorage);
     getIdeas();
 });
 
+////*LOCAL STORAGE FUNCTIONS*////
+
+/*Pull Saved Ideas from Local Storage*/
 function getIdeas () {
 	for(var i in localStorage) {
 		var oldIdea = localStorage[i];
@@ -11,11 +15,17 @@ function getIdeas () {
 	}
 }
 
-// function getIdeas(rhubarb) {
-// 	var oldIdea = localStorage.getItem("potato-" + rhubarb.id);
-// 	var parsedIdea = JSON.parse(oldIdea);
-// 	console.log(parsedIdea.title);
-// }
+/*Store New Idea to Local Storage from Inputs*/
+function storeIdea (potato) {
+	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
+}
+
+////*EVENT LISTENERS*////
+
+/*Delete Card Button*/
+$('.bottom-section').on('click', '#delete-button', function(){
+	$(this).closest('article').remove();
+});
 
 $('.save-button').on('click', function(event){
 	event.preventDefault();
@@ -30,6 +40,21 @@ $('.save-button').on('click', function(event){
 	getIdeas(idea);
 });
 
+/*Down Vote Button*/
+$('.bottom-section').on('click', '#down-vote-button', function() {
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
+})
+
+/*Up Vote Button*/
+$('.bottom-section').on('click', '#up-vote-button', function() {
+	var $qualitySpan = $(this).siblings('span');
+	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
+})
+
+////*FUNCTIONS*////
+
+/*Prepend New Card Function*/
 function newCard(idea) {
 	$(".idea-box").prepend( `
 		<article id=${idea.id} class="idea-card">
@@ -43,12 +68,20 @@ function newCard(idea) {
 		`
 	);
 }
-//Delete Button Function
-$('.bottom-section').on('click', '#delete-button', function(){
-	$(this).closest('article').remove();
-});
 
-//Local Storage
+/*Change Rank Up/Down Function*/
+function changeRank(direction, currentRank) {
+	var rankArray = ['swill', 'plausible', 'genius'];
+	var increment = direction === 'down'? -1:1;
+	var currentIndex = rankArray.indexOf(currentRank);
+	if (currentRank + increment < 0 || currentRank + increment > rankArray.length - 1) {
+		return rankArray[currentIndex];
+	} else {
+		return rankArray[currentIndex + increment];
+	};
+}
+
+////////////NOTES////////////
 
 // localStorage.setItem('ID Local Storage Knows', myObject);
 // Date.now()
@@ -65,30 +98,3 @@ $('.bottom-section').on('click', '#delete-button', function(){
 //When card is created, it needs a unique value, based on when card when
 //card was created and/or content of card.
 //Pass unique value created to localStorage to pull from.
-
-function storeIdea (potato) {
-	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
-}
-
-function changeRank(direction, currentRank) {
-	var rankArray = ['swill', 'plausible', 'genius'];
-	var increment = direction === 'down'? -1:1;
-	var currentIndex = rankArray.indexOf(currentRank);
-	if (currentRank + increment < 0 || currentRank + increment > rankArray.length - 1) {
-		return rankArray[currentIndex];
-	} else {
-		return rankArray[currentIndex + increment];
-	}
-
-}
-
-$('.bottom-section').on('click', '#up-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
-	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
-})
-
-
-$('.bottom-section').on('click', '#down-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
-	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
-})
