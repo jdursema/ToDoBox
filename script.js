@@ -2,6 +2,7 @@
 $(document).ready(function() {
     console.log(localStorage);
     getIdeas();
+    filter();
 });
 
 ////*LOCAL STORAGE FUNCTIONS*////
@@ -89,6 +90,15 @@ function changeRank(direction, currentRank) {
 		return rankArray[currentIndex + increment];
 	};
 }
+
+//Search Function
+function filter() {
+	var $searchBar = $('.search-bar'); 
+	$searchBar.on('keyup', function(){
+		console.log($searchBar.val());
+	})
+}
+
 
 ////////////NOTES////////////
 
