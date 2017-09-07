@@ -1,6 +1,6 @@
 /*Body Styling*/
 body {
-	background-color: #E5F3F2;
+	background-color: #FFF;
 	font-family: 'Open Sans', Arial, sans-serif;
 	margin: 0;
 	width: 100%;
@@ -14,7 +14,7 @@ h1, h3, .quality {
 /*Top Section*/
 .idea-box-header {
 	font-size: 3.5vw;
-	margin: 20px auto;
+	margin: 0 auto;
 	text-align: center;
 }
 
@@ -39,7 +39,9 @@ h1, h3, .quality {
 }
 
 .top-section {
+	background-color: #E5F3F2;
 	margin: 0 auto;
+	padding-top: 20px;
 }
 
 /*Bottom Section*/
@@ -50,7 +52,6 @@ article {
 
 .bottom-section {
 	background-color: #FFF;
-	height: 100vh;
 }
 
 .search-bar {
