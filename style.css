@@ -13,7 +13,7 @@ h1, h3, .quality {
 
 /*Top Section*/
 .idea-box-header {
-	font-size: 3.5vw;
+	font-size: 42px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -24,7 +24,7 @@ h1, h3, .quality {
 
 .main-inputs {
 	box-sizing: border-box;
-	font-size: 1.5vw;
+	font-size: 16px;
 	margin: 10px 25%;
 	padding-left: 5px;
 	width: 50%;
@@ -68,7 +68,7 @@ article {
 }
 
 .idea-title {
-	font-size: 1.25vw;
+	font-size: 24px;
 	margin: 20px 2px;
 }
 
@@ -99,12 +99,11 @@ article {
 
 .card-button {
 	margin-right: 20px;
-	width: 1.5vw;
 }
 
 .idea-body {
 	color: #939598;
-	font-size: 1vw;
+	font-size: 17px;
 	line-height: 130%;
 	margin: 20px 5px;
 }
