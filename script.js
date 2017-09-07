@@ -54,6 +54,12 @@ $('.bottom-section').on('click', '#up-vote-button', function() {
 
 ////*FUNCTIONS*////
 
+/*Clear Fields Function*/
+function clearInput() {
+  $('#title-input').val("");
+  $('#body-input').val("");
+}
+
 /*Prepend New Card Function*/
 function newCard(idea) {
 	$(".idea-box").prepend( `
