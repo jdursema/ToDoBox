@@ -37,7 +37,7 @@ $('.save-button').on('click', function(event){
 	}
 	storeIdea(idea);
 	newCard(idea);
-	getIdeas(idea);
+	clearInput();
 });
 
 /*Down Vote Button*/

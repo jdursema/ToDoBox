@@ -58,20 +58,6 @@ article {
 	background-color: #FFF;
 }
 
-.search-bar {
-	margin-bottom: 20px;
-	margin-top: 30px;
-}
-
-.idea-card {
-	border-bottom: 2px solid #D1D3D4;
-}
-
-.idea-title {
-	font-size: 24px;
-	margin: 20px 2px;
-}
-
 #delete-button {
 	background-image: url(images/delete.svg);
 	background-repeat: no-repeat;
@@ -108,10 +94,24 @@ article {
 	margin: 20px 5px;
 }
 
+.idea-card {
+	border-bottom: 2px solid #D1D3D4;
+}
+
+.idea-title {
+	font-size: 24px;
+	margin: 20px 2px;
+}
+
 .quality {
 	align-items: center;
 	display: flex;
 	margin: 25px 5px;
+}
+
+.search-bar {
+	margin-bottom: 20px;
+	margin-top: 30px;
 }
 
 #up-vote-button {
