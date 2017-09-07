@@ -42,13 +42,13 @@ $('.save-button').on('click', function(event){
 
 /*Down Vote Button*/
 $('.bottom-section').on('click', '#down-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
+	var $qualitySpan = $(this).siblings('.idea-rank');
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
 })
 
 /*Up Vote Button*/
 $('.bottom-section').on('click', '#up-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
+	var $qualitySpan = $(this).siblings('.idea-rank');
 	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
 })
 
