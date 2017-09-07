@@ -2,7 +2,6 @@
 $(document).ready(function() {
     console.log(localStorage);
     getIdeas();
-    filter();
 });
 
 ////*LOCAL STORAGE FUNCTIONS*////
@@ -91,13 +90,18 @@ function changeRank(direction, currentRank) {
 	};
 }
 
-//Search Function
-function filter() {
-	var $searchBar = $('.search-bar'); 
-	$searchBar.on('keyup', function(){
-		console.log($searchBar.val());
+//Search Function 
+$('.search-bar').on('keyup', function(){
+	var userInput = $(this).val();
+	$('.idea-card').each(function(index, card){
+		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase())) {
+			$(this).show()
+		} else {
+			$(this).hide()
+		}
 	})
-}
+});
+
 
 
 ////////////NOTES////////////
