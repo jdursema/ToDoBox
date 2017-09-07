@@ -37,33 +37,39 @@ $('.save-button').on('click', function(event){
 	}
 	storeIdea(idea);
 	newCard(idea);
-	getIdeas(idea);
+	clearInput();
 });
 
 /*Down Vote Button*/
 $('.bottom-section').on('click', '#down-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
+	var $qualitySpan = $(this).siblings('.idea-rank');
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
 })
 
 /*Up Vote Button*/
 $('.bottom-section').on('click', '#up-vote-button', function() {
-	var $qualitySpan = $(this).siblings('span');
+	var $qualitySpan = $(this).siblings('.idea-rank');
 	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
 })
 
 ////*FUNCTIONS*////
 
+/*Clear Fields Function*/
+function clearInput() {
+  $('#title-input').val("");
+  $('#body-input').val("");
+}
+
 /*Prepend New Card Function*/
 function newCard(idea) {
 	$(".idea-box").prepend( `
 		<article id=${idea.id} class="idea-card">
-			<h3 class="idea-title">${idea.title}<input type="image" src="images/delete.svg" class="card-button" id="delete-button" alt="idea delete button"></h3>
+			<h3 class="idea-title">${idea.title}<span id="delete-button"></span></h3>
 			<p class="idea-body">
 				${idea.body}
 			</p>
-			<p class="quality"><input type="image" id="up-vote-button" alt="idea up vote button" src="images/upvote.svg" class="card-button">
-			<input type="image" id="down-vote-button" alt="idea down vote button" src="images/downvote.svg" class="card-button">quality: <span class="idea-rank">${idea.quality}</span></p>
+			<p class="quality"><span id="up-vote-button" class="card-button"></span>
+			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.quality}</span></p>
 		</article>
 		`
 	);
