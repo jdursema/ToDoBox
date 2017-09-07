@@ -38,6 +38,10 @@ h1, h3, .quality {
 	margin-bottom: 30px;
 }
 
+.save-button:hover {
+	background-color: #045E55;
+}
+
 .top-section {
 	background-color: #E5F3F2;
 	margin: 0 auto;
