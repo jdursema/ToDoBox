@@ -1,7 +1,18 @@
 $(document).ready(function() {
     console.log(localStorage);
-    
+    // localStorage.forEach(function (idea, i) {
+    // 	console.log(idea, i);
+    // })
+
+    // newCard(getIdeas(idea));
 });
+
+function getIdeas(rhubarb) {
+	var oldIdea = localStorage.getItem("potato-" + rhubarb.id);
+	var parsedIdea = JSON.parse(oldIdea);
+	console.log(parsedIdea);
+	return parsedIdea;
+}
 
 
 $('.save-button').on('click', function(event){
@@ -13,7 +24,8 @@ $('.save-button').on('click', function(event){
 		id: Date.now()
 	}
 	storeIdea(idea);
-	newCard(idea); 
+	newCard(idea);
+	getIdeas(idea);
 });
 
 function newCard(idea) {
@@ -54,7 +66,6 @@ $('.bottom-section').on('click', '#delete-button', function(){
 
 function storeIdea (potato) {
 	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
-	console.log(localStorage);
 }
 
 function changeRank(direction, currentRank) {
