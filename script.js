@@ -30,7 +30,7 @@ $('.bottom-section').on('click', '#delete-button', function(){
 	localStorage.removeItem(potatoId);
 });
 
-$('.save-button').on('click', function(event){
+$('.save-btn').on('click', function(event){
 	event.preventDefault();
 	var idea = {
 		title: $('#title-input').val(),

@@ -9,16 +9,22 @@
 
 <body>
 	<section class="top-section">
-		<h1 class="idea-box-header"><span class="idea-header">idea</span>box</h1>
-		<form>
-			<input type="text" class="main-inputs" id="title-input" name="Title" placeholder="Title">
-			<input type="text" class="main-inputs" id="body-input" name="Body" placeholder="Body">
-			<input class="save-button main-inputs" type="submit" name="Save" value="save">
+		<h1 class="head"><span class="accent">idea</span>box</h1>
+		<form role="Idea input">
+			<label for="title-input">
+				<input for= type="text" class="main-inputs" id="title-input" name="Title" placeholder="Title">
+			</label>
+			<label for="body-input">
+				<input type="text" class="main-inputs" id="body-input" name="Body" placeholder="Body">
+			</label>
+			<label for="save">
+				<input class="save-btn main-inputs" id="save" type="submit" name="Save" value="save" >
+			</label>
 		</form>
 	</section>
 
 	<section class="bottom-section">
-		<input class="search-bar main-inputs" type="text" name="Search" placeholder="Search">
+		<input role= "search" class="search-bar main-inputs" type="text" name="Search" placeholder="Search">
 		<section class="idea-box">
 		</section>
 	</section>
