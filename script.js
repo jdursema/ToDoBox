@@ -45,7 +45,7 @@ $('.save-btn').on('click', function(event){
 	var anotherIdea = new Idea (title, body, status);
 	newCard(anotherIdea);
 	storeIdea(anotherIdea.id, anotherIdea);
-
+	clearInput();
 
 	// var idea = {
 	// 	title: $('#title-input').val(),
@@ -99,7 +99,7 @@ function newCard(idea) {
 				${idea.body}
 			</p>
 			<p class="quality"><span id="up-vote-button" class="card-button"></span>
-			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.quality}</span></p>
+			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.status}</span></p>
 		</article>
 		`
 	);
