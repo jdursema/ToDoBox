@@ -16,8 +16,8 @@ function getIdeas () {
 }
 
 /*Store New Idea to Local Storage from Inputs*/
-function storeIdea (potato) {
-	localStorage.setItem("potato-" + potato.id, JSON.stringify(potato));
+function storeIdea (id, card) {
+	localStorage.setItem(id, JSON.stringify(card));
 }
 
 ////*EVENT LISTENERS*////
@@ -26,21 +26,36 @@ function storeIdea (potato) {
 $('.bottom-section').on('click', '#delete-button', function(){
 	$(this).closest('article').remove();
 	var getId = $(this).closest('article').attr('id');
-	var potatoId = 'potato-' + getId;
-	localStorage.removeItem(potatoId);
+	var cardId = getId;
+	localStorage.removeItem(cardId);
 });
+
+function Idea (title, body) {
+	this.title = title;
+	this.body = body; 
+	this.status = 'swill'; 
+	this.id = Date.now();
+}
 
 $('.save-btn').on('click', function(event){
 	event.preventDefault();
-	var idea = {
-		title: $('#title-input').val(),
-		body: $('#body-input').val(),
-		quality: 'swill',
-		id: Date.now()
-	}
-	storeIdea(idea);
-	newCard(idea);
-	clearInput();
+	var title = $('#title-input').val();
+	var body = $('#body-input').val();
+	var status = 'swill';
+	var anotherIdea = new Idea (title, body, status);
+	newCard(anotherIdea);
+	storeIdea(anotherIdea.id, anotherIdea);
+
+
+	// var idea = {
+	// 	title: $('#title-input').val(),
+	// 	body: $('#body-input').val(),
+	// 	quality: 'swill',
+	// 	id: Date.now()
+	// }
+	// storeIdea(idea);
+	// newCard(anotherIdea);
+	// clearInput();
 });
 
 /*Down Vote Button*/
