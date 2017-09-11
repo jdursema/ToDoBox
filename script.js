@@ -1,23 +1,28 @@
 ////*ON LOAD TRIGGERS*////
 $(document).ready(function() {
-    console.log(localStorage);
-    getIdeas();
+    reloadCards();
 });
+
+// $(window).on('load', removeCompletedTask); 
 
 ////*LOCAL STORAGE FUNCTIONS*////
 
 /*Pull Saved Ideas from Local Storage*/
-function getIdeas () {
+function reloadCards () {
 	for(var i in localStorage) {
-		var oldIdea = localStorage[i];
-		var parsedIdea = JSON.parse(oldIdea);
-		newCard(parsedIdea);
+		newCard(JSON.parse(localStorage[i]));
 	}
 }
 
 /*Store New Idea to Local Storage from Inputs*/
-function storeIdea (id, card) {
-	localStorage.setItem(id, JSON.stringify(card));
+function pullFromStorage(id){
+	var uniqueCard = JSON.parse(localStorage.getItem(id));
+	return uniqueCard;
+}
+
+
+function storeIdea (card) {
+	localStorage.setItem(card.id, JSON.stringify(card));
 }
 
 ////*EVENT LISTENERS*////
@@ -35,6 +40,7 @@ function Idea (title, body) {
 	this.body = body; 
 	this.status = 'swill'; 
 	this.id = Date.now();
+	this.completion = false;
 }
 
 $('.save-btn').on('click', function(event){
@@ -44,7 +50,7 @@ $('.save-btn').on('click', function(event){
 	var status = 'swill';
 	var anotherIdea = new Idea (title, body, status);
 	newCard(anotherIdea);
-	storeIdea(anotherIdea.id, anotherIdea);
+	storeIdea(anotherIdea);
 	clearInput();	
 });
 
@@ -90,6 +96,7 @@ if (event.keyCode === 13) {
 }
 uniqueCard.title = $(this).text();
 localStorage.setItem(id, JSON.stringify(uniqueCard));
+updateStorage(id, 'title', $(this).text());
 
 }
 
@@ -139,6 +146,7 @@ function newCard(idea) {
 			</p>
 			<p class="quality"><span id="up-vote-button" class="card-button"></span>
 			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.status}</span></p>
+			<button class="complete">Completed Task</button
 		</article>
 		`
 	);
@@ -158,6 +166,49 @@ function changeRank(direction, currentRank) {
 		return rankArray[currentIndex + increment];
 	};
 }
+
+$('.idea-box').on('click', function(event){
+	event.preventDefault();
+	var currentIdeaBox = $(event.target).closest(".idea-card");
+	var id =($(this).children('.idea-card').attr('id'));
+
+	if(event.target.className ==='complete'){
+		currentIdeaBox.toggleClass('completed-task');
+	}
+	changeCompletion(id);
+})
+
+function changeCompletion (id){
+	var uniqueCard = JSON.parse(localStorage.getItem(id));
+	if ($('.idea-card').hasClass('completed-task')){
+		uniqueCard.completion = true;
+	} else
+		{uniqueCard.completion = false;}
+	localStorage.setItem(id, JSON.stringify(uniqueCard))
+}
+
+function updateStorage(id, property ,value){
+	var storedObject = pullFromStorage(id);
+	console.log(storedObject, property, value)
+	console.log(storedObject[property])
+	storeObject[property] = value
+	storeIdea(storeObject)
+	// storeIdea(car)
+
+}
+
+
+
+
+
+
+
+// function removeCompletedTask(){
+// 	var currentIdeaBox = $(event.target).closest(".idea-card");
+// 	if(event.target.className === 'completed-task'){
+// 		currentIdeaBox.remove();
+// 	}
+// }
 
 ////////////NOTES////////////
 
