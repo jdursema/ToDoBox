@@ -64,6 +64,36 @@ $('.bottom-section').on('click', '#up-vote-button', function() {
 	setStatus(id, $qualitySpan);
 })
 
+$('.bottom-section').on('keyup', '.idea-body', editBody);
+
+function editBody(event){
+var id = ($(this).closest('.idea-card').attr('id'));
+var uniqueCard = JSON.parse(localStorage.getItem(id));
+if (event.keyCode === 13) {
+	event.preventDefault();
+	this.blur();
+}
+uniqueCard.body = $(this).text();
+localStorage.setItem(id, JSON.stringify(uniqueCard));
+
+}
+
+
+$('.bottom-section').on('keyup', '.idea-title', editTitle);
+
+function editTitle(event){
+var id = ($(this).closest('.idea-card').attr('id'));
+var uniqueCard = JSON.parse(localStorage.getItem(id));
+if (event.keyCode === 13) {
+	event.preventDefault();
+	this.blur();
+}
+uniqueCard.title = $(this).text();
+localStorage.setItem(id, JSON.stringify(uniqueCard));
+
+}
+
+
 
 function setStatus (id, $qualitySpan) {
 var uniqueCard = JSON.parse(localStorage.getItem(id));
@@ -103,8 +133,8 @@ function clearInput() {
 function newCard(idea) {
 	$(".idea-box").prepend( `
 		<article id=${idea.id} class="idea-card">
-			<h3 class="idea-title">${idea.title}<span id="delete-button"></span></h3>
-			<p class="idea-body">
+			<h3 class="idea-title" contenteditable=true >${idea.title}<span id="delete-button" ></span></h3>
+			<p class="idea-body" contenteditable=true >
 				${idea.body}
 			</p>
 			<p class="quality"><span id="up-vote-button" class="card-button"></span>
@@ -113,6 +143,9 @@ function newCard(idea) {
 		`
 	);
 }
+
+
+
 
 /*Change Rank Up/Down Function*/
 function changeRank(direction, currentRank) {
