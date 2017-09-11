@@ -147,6 +147,14 @@ article {
 	text-align: center;
 }
 
+.completed-task h3, .completed-task p{
+	text-decoration: line-through;
+}
+
+.completed-task .quality{
+	text-decoration: none;
+}
+
 /*Media Queries*/
 @media screen and (max-width:1100px) {
 	article {
