@@ -45,24 +45,34 @@ $('.save-btn').on('click', function(event){
 	var anotherIdea = new Idea (title, body, status);
 	newCard(anotherIdea);
 	storeIdea(anotherIdea.id, anotherIdea);
-	clearInput();
-
-	// var idea = {
-	// 	title: $('#title-input').val(),
-	// 	body: $('#body-input').val(),
-	// 	quality: 'swill',
-	// 	id: Date.now()
-	// }
-	// storeIdea(idea);
-	// newCard(anotherIdea);
-	// clearInput();
+	clearInput();	
 });
 
 /*Down Vote Button*/
 $('.bottom-section').on('click', '#down-vote-button', function() {
 	var $qualitySpan = $(this).siblings('.idea-rank');
+	var id = ($(this).closest('.idea-card').attr('id'));
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
+	setStatus(id, $qualitySpan)
 })
+
+// upvote
+$('.bottom-section').on('click', '#up-vote-button', function() {
+	var $qualitySpan = $(this).siblings('.idea-rank');
+	var id = ($(this).closest('.idea-card').attr('id'));
+	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
+	setStatus(id, $qualitySpan);
+})
+
+
+function setStatus (id, $qualitySpan) {
+var uniqueCard = JSON.parse(localStorage.getItem(id));
+uniqueCard.status = $qualitySpan.text();
+localStorage.setItem(id, JSON.stringify(uniqueCard));
+}
+
+
+
 
 /*Search Evebnt Listener*/
 $('.search-bar').on('keyup', function(){
@@ -77,10 +87,9 @@ $('.search-bar').on('keyup', function(){
 });
 
 /*Up Vote Button*/
-$('.bottom-section').on('click', '#up-vote-button', function() {
-	var $qualitySpan = $(this).siblings('.idea-rank');
-	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
-})
+
+
+
 
 ////*FUNCTIONS*////
 
