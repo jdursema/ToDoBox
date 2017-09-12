@@ -50,7 +50,6 @@ $('.save-btn').on('click', function(event){
 });
 
 
-
 function editBody(event){
 var id = ($(this).closest('.idea-card').attr('id'));
 if (event.keyCode === 13) {
@@ -121,6 +120,7 @@ function newCard(idea) {
 		`
 	);
 }
+
 
 
 
