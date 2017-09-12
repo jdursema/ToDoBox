@@ -33,7 +33,7 @@ $('.bottom-section').on('click', '#delete-button', function(){
 function Idea (title, body) {
 	this.title = title;
 	this.body = body; 
-	this.status = 'swill'; 
+	this.status = 'Normal'; 
 	this.id = Date.now();
 	this.completion = false;
 }
@@ -42,7 +42,7 @@ $('.save-btn').on('click', function(event){
 	event.preventDefault();
 	var title = $('#title-input').val();
 	var body = $('#body-input').val();
-	var status = 'swill';
+	var status = 'Normal';
 	var anotherIdea = new Idea (title, body, status);
 	newCard(anotherIdea);
 	storeIdea(anotherIdea);
@@ -115,7 +115,7 @@ function newCard(idea) {
 				${idea.body}
 			</p>
 			<p class="quality"><span id="up-vote-button" class="card-button"></span>
-			<span id="down-vote-button" class="card-button"></span>quality: <span class="idea-rank">${idea.status}</span></p>
+			<span id="down-vote-button" class="card-button"></span>Importance: <span class="idea-rank">${idea.status}</span></p>
 			<button class="complete">Completed Task</button
 		</article>
 		`
@@ -125,7 +125,7 @@ function newCard(idea) {
 
 
 function changeRank(direction, currentRank) {
-	var rankArray = ['swill', 'plausible', 'genius'];
+	var rankArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
 	var increment = direction === 'down'? -1:1;
 	var currentIndex = rankArray.indexOf(currentRank);
 	if (currentRank + increment < 0 || currentRank + increment > rankArray.length - 1) {
