@@ -19,7 +19,7 @@ h1, h3, .quality {
 }
 
 .accent {
-	color: #00A79D;
+	color: #F28F3B;
 }
 
 .main-inputs {
@@ -38,18 +38,18 @@ h1, h3, .quality {
 
 .save-btn {
 	color: #FFF;
-	background-color: #00A79D;
+	background-color: #F28F3B;
 	border: none;
 	padding: 5px;
 	margin-bottom: 30px;
 }
 
 .save-btn:hover {
-	background-color: #045E55;
+	background-color: #BA6E2C;
 }
 
 .top-section {
-	background-color: #E5F3F2;
+	background-color: #FFDCA5;
 	/*margin: 0 auto;*/
 	padding-top: 20px;
 	text-align: center;
@@ -113,6 +113,7 @@ article {
 
 .idea-rank {
 	margin-left: 0.3em;
+	width: 15%;
 }
 
 .idea-title {
@@ -179,6 +180,18 @@ article {
 	}
 
 	
+}
+
+.complete{
+	color: #FFF;
+	background-color: #D1D3D4;
+	border: none;
+	/*padding: 5px;*/
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-size: 16px;
+	display: inline-block;
+	/*margin-bottom: 30px;*/
+	margin-left: 15%;
 }
 
 
