@@ -5,23 +5,15 @@ $(document).ready(function() {
     // changeCompletionClass(id);
 });
 
-var myArray = []
 
 function reloadCards () {
-	// var object = pullFromStorage(getId);	
 	for(var i in localStorage) {
-	newCard(JSON.parse(localStorage[i]));
-	var p = (JSON.parse(localStorage[i]))
-	console.log(p.completion)
-	// 		if (object.completion === true){
-	// 	currentIdeaBox.addClass('completed-task')
-	// }
-	// 	else if (object.completion === false){
-	// 		currentIdeaBox.removeClass('completed-task')
-	// 	}
-	// }
+	newCard(JSON.parse(localStorage[i]))
+	}
+	
 }
-}
+	
+
 
 /*Store New Idea to Local Storage from Inputs*/
 function pullFromStorage(id){
@@ -121,8 +113,15 @@ function clearInput() {
 }
 
 function newCard(idea) {
+	console.log(idea)
+	var classes = 'idea-card'
+	if (idea.completion){
+		classes = 'idea-card completed-task'
+		console.log('completed')
+	}
+
 	$(".idea-box").prepend( `
-		<article id=${idea.id} class="idea-card">
+		<article id=${idea.id} class='${classes}'>
 			<h3 class="idea-title" contenteditable=true >${idea.title}<span id="delete-button" ></span></h3>
 			<p class="idea-body" contenteditable=true >
 				${idea.body}
@@ -133,6 +132,7 @@ function newCard(idea) {
 		</article>
 		`
 	);
+		
 }
 
 
@@ -191,6 +191,11 @@ function updateStorage(id, property, value){
 	storeIdea(storedObject);
 }
 
+function showCompletedToDos(){
+	console.log($('.idea-card'))
+	
+}
+
 
 $('.bottom-section').on('keyup', '.idea-body', editBody);
 
@@ -203,6 +208,8 @@ $('.bottom-section').on('click', '#down-vote-button', downVote);
 $('.search-bar').on('keyup', searchIdea);
 
 $('.idea-box').on('click', '.complete', changeCompletion)
+
+$('#show-completed-btn').on('click', showCompletedToDos)
 
 // function removeCompletedTask(){
 // 	var currentIdeaBox = $(event.target).closest(".idea-card");
