@@ -1,13 +1,26 @@
 ////*ON LOAD TRIGGERS*////
 $(document).ready(function() {
+
     reloadCards();
+    // changeCompletionClass(id);
 });
 
+var myArray = []
 
 function reloadCards () {
+	// var object = pullFromStorage(getId);	
 	for(var i in localStorage) {
-		newCard(JSON.parse(localStorage[i]));
-	}
+	newCard(JSON.parse(localStorage[i]));
+	var p = (JSON.parse(localStorage[i]))
+	console.log(p.completion)
+	// 		if (object.completion === true){
+	// 	currentIdeaBox.addClass('completed-task')
+	// }
+	// 	else if (object.completion === false){
+	// 		currentIdeaBox.removeClass('completed-task')
+	// 	}
+	// }
+}
 }
 
 /*Store New Idea to Local Storage from Inputs*/
@@ -115,8 +128,8 @@ function newCard(idea) {
 				${idea.body}
 			</p>
 			<p class="quality"><span id="up-vote-button" class="card-button"></span>
-			<span id="down-vote-button" class="card-button"></span>Importance: <span class="idea-rank">${idea.status}</span></p>
-			<button class="complete">Completed Task</button
+			<span id="down-vote-button" class="card-button"></span>Importance: <span class="idea-rank">${idea.status}</span><button class="complete">Completed Task</button></p>
+			
 		</article>
 		`
 	);
@@ -135,32 +148,47 @@ function changeRank(direction, currentRank) {
 	};
 }
 
-$('.idea-box').on('click', function(event){
-	event.preventDefault();
-	var currentIdeaBox = $(event.target).closest(".idea-card");
-	var id =($(this).children('.idea-card').attr('id'));
 
-	if(event.target.className ==='complete'){
-		currentIdeaBox.toggleClass('completed-task');
-	}
-	changeCompletion(id);
 
-})
+
 
 function changeCompletion (id){
-	var uniqueCard = JSON.parse(localStorage.getItem(id));
-	if ($('.idea-card').hasClass('completed-task')){
-		uniqueCard.completion = true;
-	} else {uniqueCard.completion = false;}
-	localStorage.setItem(id, JSON.stringify(uniqueCard))
+	event.preventDefault();
+	var getId = $(this).closest('article').attr('id');
+	var object = pullFromStorage(getId);	
+	var currentIdeaBox = $(event.target).closest(".idea-card");
 
+
+	if (object.completion === true){
+		object.completion = false;
+		currentIdeaBox.removeClass('completed-task')
+	}
+	else if (object.completion===false){
+		object.completion = true;
+		currentIdeaBox.addClass('completed-task');
+	}
+	console.log(object);
+	localStorage.setItem(getId,JSON.stringify(object));
+	// changeCompletionClass(getId);
 }
+
+
+function changeCompletionClass(getId){
+	var getId = $(this).closest('article').attr('id');
+	var object = pullFromStorage(getId);
+	var currentIdeaBox = $(event.target).closest(".idea-card");
+		if (object.completion === true){
+		currentIdeaBox.addClass('completed-task')
+	}
+		else if (object.completion === false){
+			currentIdeaBox.removeClass('completed-task')
+		}
+};
 
 function updateStorage(id, property, value){
 	var storedObject = pullFromStorage(id);
 	storedObject[property] = value;
 	storeIdea(storedObject);
-
 }
 
 
@@ -173,6 +201,8 @@ $('.bottom-section').on('click', '#up-vote-button', upVote);
 $('.bottom-section').on('click', '#down-vote-button', downVote);
 
 $('.search-bar').on('keyup', searchIdea);
+
+$('.idea-box').on('click', '.complete', changeCompletion)
 
 // function removeCompletedTask(){
 // 	var currentIdeaBox = $(event.target).closest(".idea-card");
