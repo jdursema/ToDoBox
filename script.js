@@ -103,16 +103,6 @@ function changeStatusClass ($card, status, previous) {
 
 
 	$card.removeClass(previous).addClass(status)
-
-
-	
-
-// select the card and remove the class
-
-// update with status being passed in 
-
-//$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-
 }
 
 
