@@ -13,6 +13,14 @@ function reloadCards () {
 	
 }
 	
+function showTenCards(){
+	var $ideaCard = $('.idea-card')
+	$ideaCard.each(function(index){
+		if (index >= 10){
+		($($ideaCard[index]).hide())
+		}
+	})
+}
 
 
 /*Store New Idea to Local Storage from Inputs*/
@@ -113,11 +121,9 @@ function clearInput() {
 }
 
 function newCard(idea) {
-	console.log(idea)
 	var classes = 'idea-card'
 	if (idea.completion){
 		classes = 'idea-card completed-task hide-completed-task'
-		console.log('completed')
 	}
 
 	$(".idea-box").prepend( `
@@ -132,7 +138,7 @@ function newCard(idea) {
 		</article>
 		`
 	);
-		
+	showTenCards()	
 }
 
 
@@ -161,13 +167,12 @@ function changeCompletion (id){
 
 	if (object.completion === true){
 		object.completion = false;
-		currentIdeaBox.removeClass('completed-task')
+		currentIdeaBox.removeClass('completed-task hide-completed-task')
 	}
 	else if (object.completion===false){
 		object.completion = true;
-		currentIdeaBox.addClass('completed-task');
+		currentIdeaBox.addClass('completed-task hide-completed-task');
 	}
-	console.log(object);
 	localStorage.setItem(getId,JSON.stringify(object));
 	// changeCompletionClass(getId);
 }
@@ -193,7 +198,6 @@ function updateStorage(id, property, value){
 
 function showCompletedToDos(idea){
 	var completedCards = $('.completed-task')
-	console.log(completedCards)
 	completedCards.toggleClass('hide-completed-task')
 	
 }
