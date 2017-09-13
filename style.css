@@ -19,7 +19,7 @@ h1, h3, .quality {
 }
 
 .accent {
-	color: #00A79D;
+	color: #F28F3B;
 }
 
 .main-inputs {
@@ -38,18 +38,18 @@ h1, h3, .quality {
 
 .save-btn {
 	color: #FFF;
-	background-color: #00A79D;
+	background-color: #F28F3B;
 	border: none;
 	padding: 5px;
 	margin-bottom: 30px;
 }
 
 .save-btn:hover {
-	background-color: #045E55;
+	background-color: #BA6E2C;
 }
 
 .top-section {
-	background-color: #E5F3F2;
+	background-color: #FFDCA5;
 	/*margin: 0 auto;*/
 	padding-top: 20px;
 	text-align: center;
@@ -66,7 +66,7 @@ article {
 	background-color: #FFF;
 }
 
-#delete-button {
+.delete-button {
 	background-image: url(images/delete.svg);
 	background-repeat: no-repeat;
 	display: inline-block;
@@ -76,18 +76,18 @@ article {
 	width: 25px;
 }
 
-#delete-button:hover {
+.delete-button:hover {
 	background-image: url(images/delete-hover.svg);
 }
 
-#down-vote-button {
+.down-vote-button {
 	background-image: url(images/downvote.svg);
 	background-repeat: no-repeat;
 	height: 25px;
 	width: 25px;
 }
 
-#down-vote-button:hover {
+.down-vote-button:hover {
 	background-image: url(images/downvote-hover.svg);
 }
 
@@ -113,6 +113,7 @@ article {
 
 .idea-rank {
 	margin-left: 0.3em;
+	width: 15%;
 }
 
 .idea-title {
@@ -132,14 +133,14 @@ article {
 	margin-top: 30px;
 }
 
-#up-vote-button {
+.up-vote-button {
 	background-image: url(images/upvote.svg);
 	background-repeat: no-repeat;
 	height: 25px;
 	width: 25px;
 }
 
-#up-vote-button:hover {
+.up-vote-button:hover {
 	background-image: url(images/upvote-hover.svg);
 }
 
@@ -153,6 +154,10 @@ article {
 
 .completed-task .quality{
 	text-decoration: none;
+}
+
+.hide-completed-task{
+	display: none;
 }
 
 /*Media Queries*/
@@ -179,6 +184,18 @@ article {
 	}
 
 	
+}
+
+.complete{
+	color: #FFF;
+	background-color: #D1D3D4;
+	border: none;
+	/*padding: 5px;*/
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-size: 16px;
+	display: inline-block;
+	/*margin-bottom: 30px;*/
+	margin-left: 15%;
 }
 
 

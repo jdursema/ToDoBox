@@ -1,14 +1,19 @@
 ////*ON LOAD TRIGGERS*////
 $(document).ready(function() {
+
     reloadCards();
+    // changeCompletionClass(id);
 });
 
 
 function reloadCards () {
 	for(var i in localStorage) {
-		newCard(JSON.parse(localStorage[i]));
+	newCard(JSON.parse(localStorage[i]))
 	}
+	
 }
+	
+
 
 /*Store New Idea to Local Storage from Inputs*/
 function pullFromStorage(id){
@@ -24,7 +29,7 @@ function storeIdea (card) {
 ////*EVENT LISTENERS*////
 
 /*Delete Card Button*/
-$('.bottom-section').on('click', '#delete-button', function(){
+$('.bottom-section').on('click', '.delete-button', function(){
 	$(this).closest('article').remove();
 	var getId = $(this).closest('article').attr('id');
 	localStorage.removeItem(getId);
@@ -73,19 +78,43 @@ updateStorage(id, 'title', $(this).text());
 
 function downVote() {
 	var $qualitySpan = $(this).siblings('.idea-rank');
-	var id = ($(this).closest('.idea-card').attr('id'));
+	var $domCard = $(this).closest('.idea-card');
+	var previousQuality = $qualitySpan.text();
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
-	updateStorage(id, 'status', $qualitySpan.text());
+	updateStorage($domCard.attr('id'), 'status', $qualitySpan.text());
+	changeStatusClass($domCard, $qualitySpan.text(), previousQuality);
 
 }
 
 	
 function upVote() {
+
 	var $qualitySpan = $(this).siblings('.idea-rank');
-	var id = ($(this).closest('.idea-card').attr('id'));
+	var $domCard = $(this).closest('.idea-card');
+	var previousQuality = $qualitySpan.text();
 	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
-	updateStorage(id, 'status', $qualitySpan.text());
+	updateStorage($domCard.attr('id'), 'status', $qualitySpan.text());
+	changeStatusClass($domCard, $qualitySpan.text(), previousQuality);
+	
 }
+
+
+function changeStatusClass ($card, status, previous) {
+
+
+	$card.removeClass(previous).addClass(status)
+
+
+	
+
+// select the card and remove the class
+
+// update with status being passed in 
+
+//$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+
+}
+
 
 
 function searchIdea () {
@@ -107,18 +136,24 @@ function clearInput() {
 }
 
 function newCard(idea) {
+	var classes = `idea-card ${idea.status}`
+	if (idea.completion){
+		classes = classes + ' completed-task hide-completed-task'
+	}
+
 	$(".idea-box").prepend( `
-		<article id=${idea.id} class="idea-card">
-			<h3 class="idea-title" contenteditable=true >${idea.title}<span id="delete-button" ></span></h3>
+		<article id=${idea.id} class='${classes}'>
+			<h3 class="idea-title" contenteditable=true >${idea.title}<span class="delete-button" ></span></h3>
 			<p class="idea-body" contenteditable=true >
 				${idea.body}
 			</p>
-			<p class="quality"><span id="up-vote-button" class="card-button"></span>
-			<span id="down-vote-button" class="card-button"></span>Importance: <span class="idea-rank">${idea.status}</span></p>
-			<button class="complete">Completed Task</button
+			<p class="quality"><span class = "up-vote-button card-button"></span>
+			<span class= "down-vote-button card-button"></span>Importance: <span class="idea-rank">${idea.status}</span><button class="complete">Completed Task</button></p>
+			
 		</article>
 		`
 	);
+		
 }
 
 
@@ -135,70 +170,87 @@ function changeRank(direction, currentRank) {
 	};
 }
 
-// $('.idea-box').on('click', function(event){
-// 	event.preventDefault();
-// 	var currentIdeaBox = $(event.target).closest(".idea-card");
-// 	var id =($(this).children('.idea-card').attr('id'));
-
-// 	if(event.target.className ==='complete'){
-// 		currentIdeaBox.toggleClass('completed-task');
-// 	}
-// 	changeCompletion(id);
-
-// })
 
 
-$('.bottom-section').on('click', '.complete', markCompleted);
-
-function markCompleted (event) {
-event.preventDefault();
-var id = ($(this).closest('.idea-card').attr('id'));
-($(this).closest('.idea-card')).toggleClass('completed-task');
-($(this).closest('.idea-title')).toggleClass('completed-task');
-($(this).closest('.idea-body')).toggleClass('completed-task');
-changeCompletion(id);
-}
 
 
-// function markCompleted(event){
-// 	($(this).closest('.idea-article')).toggleClass('completed');
-// 	($(this).closest('.idea-article').find('.idea-title')).toggleClass('completed');
-// 	($(this).closest('.idea-article').find('.idea-paragraph')).toggleClass('completed');
-// 	($(this).closest('.idea-article').find('.importance')).toggleClass('completed');
-// 	var storedObj = JSON.parse(localStorage.getItem(($(this).closest('.idea-article')).attr('id')));
-// 	storedObj.completed = ($(this).closest('.idea-article')).hasClass('completed');
-// 	localStorage.setItem(($(this).closest('.idea-article')).attr('id'),JSON.stringify(storedObj));
-// }
 
 
 function changeCompletion (id){
-
-	console.log(id)
-	var uniqueCard = JSON.parse(localStorage.getItem(id));
-	if ($('.idea-card').hasClass('completed-task')){
-		uniqueCard.completion = true;
-	} else {uniqueCard.completion = false;}
-	localStorage.setItem(id, JSON.stringify(uniqueCard))
-
+	event.preventDefault();
+	var getId = $(this).closest('article').attr('id');
+	var object = pullFromStorage(getId);	
+	var currentIdeaBox = $(event.target).closest(".idea-card");
+	if (object.completion === true){
+		object.completion = false;
+		currentIdeaBox.removeClass('completed-task')
+	}
+	else if (object.completion===false){
+		object.completion = true;
+		currentIdeaBox.addClass('completed-task');
+	}
+	localStorage.setItem(getId,JSON.stringify(object));
+	// changeCompletionClass(getId);
 }
+
+
+function changeCompletionClass(getId){
+	var getId = $(this).closest('article').attr('id');
+	var object = pullFromStorage(getId);
+	var currentIdeaBox = $(event.target).closest(".idea-card");
+		if (object.completion === true){
+		currentIdeaBox.addClass('completed-task')
+	}
+		else if (object.completion === false){
+			currentIdeaBox.removeClass('completed-task')
+		}
+};
 
 function updateStorage(id, property, value){
 	var storedObject = pullFromStorage(id);
 	storedObject[property] = value;
 	storeIdea(storedObject);
-
 }
+
+function showCompletedToDos(idea){
+	var completedCards = $('.completed-task')
+	completedCards.toggleClass('hide-completed-task')
+	
+}
+
+function showNormal () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("Normal")) {
+	}else{
+		($($allCards[i]).hide());
+	}
+		
+	}
+}
+
+
+
+//$( "#mydiv" ).hasClass( "foo" )
+
+
 
 
 $('.bottom-section').on('keyup', '.idea-body', editBody);
 
 $('.bottom-section').on('keyup', '.idea-title', editTitle);
 
-$('.bottom-section').on('click', '#up-vote-button', upVote);
+$('.bottom-section').on('click', '.up-vote-button', upVote);
 
-$('.bottom-section').on('click', '#down-vote-button', downVote);
+$('.bottom-section').on('click', '.down-vote-button', downVote);
 
 $('.search-bar').on('keyup', searchIdea);
+
+$('.idea-box').on('click', '.complete', changeCompletion)
+
+$('#show-completed-btn').on('click', showCompletedToDos)
+
+$('#show-normal-btn').on('click', showNormal)
 
 // function removeCompletedTask(){
 // 	var currentIdeaBox = $(event.target).closest(".idea-card");
