@@ -116,7 +116,7 @@ function newCard(idea) {
 	console.log(idea)
 	var classes = 'idea-card'
 	if (idea.completion){
-		classes = 'idea-card completed-task'
+		classes = 'idea-card completed-task hide-completed-task'
 		console.log('completed')
 	}
 
@@ -191,8 +191,10 @@ function updateStorage(id, property, value){
 	storeIdea(storedObject);
 }
 
-function showCompletedToDos(){
-	console.log($('.idea-card'))
+function showCompletedToDos(idea){
+	var completedCards = $('.completed-task')
+	console.log(completedCards)
+	completedCards.toggleClass('hide-completed-task')
 	
 }
 
