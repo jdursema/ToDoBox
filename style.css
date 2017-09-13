@@ -66,7 +66,7 @@ article {
 	background-color: #FFF;
 }
 
-#delete-button {
+.delete-button {
 	background-image: url(images/delete.svg);
 	background-repeat: no-repeat;
 	display: inline-block;
@@ -76,18 +76,18 @@ article {
 	width: 25px;
 }
 
-#delete-button:hover {
+.delete-button:hover {
 	background-image: url(images/delete-hover.svg);
 }
 
-#down-vote-button {
+.down-vote-button {
 	background-image: url(images/downvote.svg);
 	background-repeat: no-repeat;
 	height: 25px;
 	width: 25px;
 }
 
-#down-vote-button:hover {
+.down-vote-button:hover {
 	background-image: url(images/downvote-hover.svg);
 }
 
@@ -133,14 +133,14 @@ article {
 	margin-top: 30px;
 }
 
-#up-vote-button {
+.up-vote-button {
 	background-image: url(images/upvote.svg);
 	background-repeat: no-repeat;
 	height: 25px;
 	width: 25px;
 }
 
-#up-vote-button:hover {
+.up-vote-button:hover {
 	background-image: url(images/upvote-hover.svg);
 }
 
