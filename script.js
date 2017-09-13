@@ -250,7 +250,7 @@ $('.idea-box').on('click', '.complete', changeCompletion)
 
 $('#show-completed-btn').on('click', showCompletedToDos)
 
-$('#show-all-btn').on('click', showAll)
+$('#show-all-btn').on('click', reloadCards)
 
 $("#importance-filter").on('change', selectImportance) 
 
