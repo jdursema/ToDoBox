@@ -13,6 +13,14 @@ function reloadCards () {
 	
 }
 	
+function showTenCards(){
+	var $ideaCard = $('.idea-card')
+	$ideaCard.each(function(index){
+		if (index >= 10){
+		($($ideaCard[index]).hide())
+		}
+	})
+}
 
 
 /*Store New Idea to Local Storage from Inputs*/
@@ -129,6 +137,7 @@ function newCard(idea) {
 	var classes = `All idea-card ${idea.status}`
 	if (idea.completion){
 		classes = classes + ' completed-task hide-completed-task'
+
 	}
 
 	$(".idea-box").prepend( `
@@ -143,7 +152,7 @@ function newCard(idea) {
 		</article>
 		`
 	);
-		
+	showTenCards()	
 }
 
 
@@ -173,11 +182,11 @@ function changeCompletion (id){
 	var currentIdeaBox = $(event.target).closest(".idea-card");
 	if (object.completion === true){
 		object.completion = false;
-		currentIdeaBox.removeClass('completed-task')
+		currentIdeaBox.removeClass('completed-task hide-completed-task')
 	}
 	else if (object.completion===false){
 		object.completion = true;
-		currentIdeaBox.addClass('completed-task');
+		currentIdeaBox.addClass('completed-task hide-completed-task');
 	}
 	localStorage.setItem(getId,JSON.stringify(object));
 	// changeCompletionClass(getId);
