@@ -103,16 +103,6 @@ function changeStatusClass ($card, status, previous) {
 
 
 	$card.removeClass(previous).addClass(status)
-
-
-	
-
-// select the card and remove the class
-
-// update with status being passed in 
-
-//$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-
 }
 
 
@@ -136,7 +126,7 @@ function clearInput() {
 }
 
 function newCard(idea) {
-	var classes = `idea-card ${idea.status}`
+	var classes = `All idea-card ${idea.status}`
 	if (idea.completion){
 		classes = classes + ' completed-task hide-completed-task'
 	}
@@ -225,9 +215,9 @@ var $allCards = $('.idea-card');
 	}else{
 		($($allCards[i]).hide());
 	}
-		
 	}
 }
+
 
 
 
@@ -250,7 +240,80 @@ $('.idea-box').on('click', '.complete', changeCompletion)
 
 $('#show-completed-btn').on('click', showCompletedToDos)
 
-$('#show-normal-btn').on('click', showNormal)
+$('#show-all-btn').on('click', reloadCards)
+
+$("#importance-filter").on('change', selectImportance) 
+
+function selectImportance () {
+	if ((this).value === "4") {
+		showNormal ();
+	} else if 
+		((this).value === "3") {
+		showLow();
+	}else if 
+		((this).value === "2") {
+		showNone();
+	} else if 
+		((this).value === "5") {
+		showHigh();
+	} else if 
+		((this).value === "6") {
+		showCritical();
+	} else {
+		showAll();
+	}
+}
+
+
+function showLow () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("Low")) {
+	}else{
+		($($allCards[i]).hide());
+	}
+	}
+}
+
+function showAll () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("All")) {
+	}else{
+		console.log('hidden cards')
+		// ($($allCards[i]).hide());
+	}
+	}
+}
+
+function showHigh () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("High")) {
+	}else{
+		($($allCards[i]).hide());
+	}
+	}
+}
+function showNone () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("None")) {
+	}else{
+		($($allCards[i]).hide());
+	}
+	}
+}
+
+function showCritical () {
+var $allCards = $('.idea-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+	if ($($allCards[i]).hasClass("Critical")) {
+	}else{
+		($($allCards[i]).hide());
+	}
+	}
+}
 
 // function removeCompletedTask(){
 // 	var currentIdeaBox = $(event.target).closest(".idea-card");
