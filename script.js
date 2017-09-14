@@ -64,7 +64,7 @@ $('.save-btn').on('click', function(event){
 
 
 function editBody(event){
-var id = ($(this).closest('.idea-card').attr('id'));
+var id = ($(this).closest('.todo-card').attr('id'));
 if (event.keyCode === 13) {
 	event.preventDefault();
 	this.blur();
@@ -74,8 +74,7 @@ updateStorage(id, 'body', $(this).text());
 
 
 function editTitle(event){
-getID();
-var id = ($(this).closest('.idea-card').attr('id'));
+var id = ($(this).closest('.todo-card').attr('id'));
 if (event.keyCode === 13) {
 	event.preventDefault();
 	this.blur();
@@ -85,7 +84,7 @@ updateStorage(id, 'title', $(this).text());
 }
 
 function downVote() {
-	var $qualitySpan = $(this).siblings('.idea-rank');
+	var $qualitySpan = $(this).siblings('.todo-rank');
 	var $domCard = $(this).closest('.idea-card');
 	var previousQuality = $qualitySpan.text();
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
@@ -97,8 +96,8 @@ function downVote() {
 	
 function upVote() {
 
-	var $qualitySpan = $(this).siblings('.idea-rank');
-	var $domCard = $(this).closest('.idea-card');
+	var $qualitySpan = $(this).siblings('.todo-rank');
+	var $domCard = $(this).closest('.todo-card');
 	var previousQuality = $qualitySpan.text();
 	$qualitySpan.text(changeRank('up',$qualitySpan.text())); 
 	updateStorage($domCard.attr('id'), 'status', $qualitySpan.text());
@@ -117,8 +116,8 @@ function changeStatusClass ($card, status, previous) {
 
 function searchIdea () {
 	var userInput = $(this).val();
-	$('.idea-card').each(function(index, card){
-		if ($(this).children('.idea-title').text().toLowerCase().includes(userInput.toLowerCase()) || $(this).children('.idea-body').text().toLowerCase().includes(userInput.toLowerCase())) {
+	$('.todo-card').each(function(index, card){
+		if ($(this).children('.todo-title').text().toLowerCase().includes(userInput.toLowerCase()) || $(this).children('.todo-body').text().toLowerCase().includes(userInput.toLowerCase())) {
 			$(this).show()
 		} else {
 			$(this).hide()
@@ -134,20 +133,20 @@ function clearInput() {
 }
 
 function newCard(idea) {
-	var classes = `All idea-card ${idea.status}`
+	var classes = `todo-card ${idea.status}`
 	if (idea.completion){
 		classes = classes + ' completed-task hide-completed-task'
 
 	}
 
-	$(".idea-box").prepend( `
+	$(".todo-box").prepend( `
 		<article id=${idea.id} class='${classes}'>
-			<h3 class="idea-title" contenteditable=true >${idea.title}<span class="delete-button" ></span></h3>
-			<p class="idea-body" contenteditable=true >
+			<h3 class="todo-title" contenteditable=true >${idea.title}<span class="delete-button" ></span></h3>
+			<p class="todo-body" contenteditable=true >
 				${idea.body}
 			</p>
 			<p class="quality"><span class = "up-vote-button card-button"></span>
-			<span class= "down-vote-button card-button"></span>Importance: <span class="idea-rank">${idea.status}</span><button class="complete">Completed Task</button></p>
+			<span class= "down-vote-button card-button"></span>Importance: <span class="todo-rank">${idea.status}</span><button class="complete">Completed Task</button></p>
 			
 		</article>
 		`
@@ -179,7 +178,7 @@ function changeCompletion (id){
 	event.preventDefault();
 	var getId = $(this).closest('article').attr('id');
 	var object = pullFromStorage(getId);	
-	var currentIdeaBox = $(event.target).closest(".idea-card");
+	var currentIdeaBox = $(event.target).closest(".todo-card");
 	if (object.completion === true){
 		object.completion = false;
 		currentIdeaBox.removeClass('completed-task hide-completed-task')
@@ -196,7 +195,7 @@ function changeCompletion (id){
 function changeCompletionClass(getId){
 	var getId = $(this).closest('article').attr('id');
 	var object = pullFromStorage(getId);
-	var currentIdeaBox = $(event.target).closest(".idea-card");
+	var currentIdeaBox = $(event.target).closest(".todo-card");
 		if (object.completion === true){
 		currentIdeaBox.addClass('completed-task')
 	}
@@ -218,7 +217,7 @@ function showCompletedToDos(idea){
 }
 
 function showNormal () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("Normal")) {
 	}else{
@@ -235,9 +234,9 @@ var $allCards = $('.idea-card');
 
 
 
-$('.bottom-section').on('keyup', '.idea-body', editBody);
+$('.bottom-section').on('keyup', '.todo-body', editBody);
 
-$('.bottom-section').on('keyup', '.idea-title', editTitle);
+$('.bottom-section').on('keyup', '.todo-title', editTitle);
 
 $('.bottom-section').on('click', '.up-vote-button', upVote);
 
@@ -245,7 +244,7 @@ $('.bottom-section').on('click', '.down-vote-button', downVote);
 
 $('.search-bar').on('keyup', searchIdea);
 
-$('.idea-box').on('click', '.complete', changeCompletion)
+$('.todo-box').on('click', '.complete', changeCompletion)
 
 $('#show-completed-btn').on('click', showCompletedToDos)
 
@@ -275,7 +274,7 @@ function selectImportance () {
 
 
 function showLow () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("Low")) {
 	}else{
@@ -285,7 +284,7 @@ var $allCards = $('.idea-card');
 }
 
 function showAll () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("All")) {
 	}else{
@@ -296,7 +295,7 @@ var $allCards = $('.idea-card');
 }
 
 function showHigh () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("High")) {
 	}else{
@@ -305,7 +304,7 @@ var $allCards = $('.idea-card');
 	}
 }
 function showNone () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("None")) {
 	}else{
@@ -315,7 +314,7 @@ var $allCards = $('.idea-card');
 }
 
 function showCritical () {
-var $allCards = $('.idea-card');
+var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
 	if ($($allCards[i]).hasClass("Critical")) {
 	}else{
@@ -324,27 +323,3 @@ var $allCards = $('.idea-card');
 	}
 }
 
-// function removeCompletedTask(){
-// 	var currentIdeaBox = $(event.target).closest(".idea-card");
-// 	if(event.target.className === 'completed-task'){
-// 		currentIdeaBox.remove();
-// 	}
-// }
-
-////////////NOTES////////////
-
-// localStorage.setItem('ID Local Storage Knows', myObject);
-// Date.now()
-// localStorage.getItem(myObject.id)
-// v
-
-//To save old ideas:
-//First needs to look at localStorage to see if there are ideas.
-//If ideas are present, they are shown in lower half, represented as cards.
-
-//For new idea:
-//Get input from user: Title and the Body.
-//Make a new card with those values.
-//When card is created, it needs a unique value, based on when card when
-//card was created and/or content of card.
-//Pass unique value created to localStorage to pull from.
