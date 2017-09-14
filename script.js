@@ -50,6 +50,16 @@ function showTenCards(){
 	})
 }
 
+function showShowMore(){
+	var $showMoreBtn = $('#show-more-btn')
+	var $toDoCard = $('.todo-card')
+	$toDoCard.each(function(index){
+		if (index > -1){
+			$showMoreBtn.removeClass('hide-completed-task')
+		}
+	})
+}
+
 
 function pullFromStorage(id){
 	var uniqueCard = JSON.parse(localStorage.getItem(id));
@@ -178,11 +188,12 @@ function newCard(todo) {
 			<h3 class="todo-title" contenteditable=true >${todo.title}<span class="delete-button" ></span></h3>
 			<p class="todo-body" contenteditable=true > ${todo.body} </p>
 			<p class="quality"><span class = "up-vote-button card-button"></span>
-			<span class= "down-vote-button card-button"></span>Importance: <span class="todo-rank">${todo.status}</span><button class="complete">Completed Task</button></p>
-		</article>
-		`
+			<span class= "down-vote-button card-button"></span>Importance: <span class="todo-rank">${todo.status}</span></p>
+			<button class="complete">Completed Task</button>
+			</article>`
 		);
-	showTenCards()	
+	showTenCards();	
+	showShowMore();
 }
 
 
