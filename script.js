@@ -223,20 +223,20 @@ function changeRank(direction, currentRank) {
 
 
 function changeCompletion (id){
-	event.preventDefault();
-	var getId = $(this).closest('article').attr('id');
-	var object = pullFromStorage(getId);	
-	var currentTodoBox = $(event.target).closest(".todo-card");
-	if (object.completion === true){
-		object.completion = false;
-		currentTodoBox.removeClass('completed-task hide-completed-task')
-	}
-	else if (object.completion===false){
-		object.completion = true;
-		currentTodoBox.addClass('completed-task hide-completed-task');
-	}
-	localStorage.setItem(getId,JSON.stringify(object));
-	
+    event.preventDefault();
+    var getId = $(this).closest('article').attr('id');
+    var object = pullFromStorage(getId);    
+    var currentTodoBox = $(event.target).closest(".todo-card");
+    if (object.completion === true){
+        object.completion = false;
+        currentTodoBox.removeClass('completed-task hide-completed-task')
+    }
+    else if (object.completion===false){
+        object.completion = true;
+        currentTodoBox.addClass('completed-task hide-completed-task');
+    }
+    localStorage.setItem(getId,JSON.stringify(object));
+    
 };
 
 
