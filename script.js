@@ -1,49 +1,83 @@
-////*ON LOAD TRIGGERS*////
-$(document).ready(function() {
 
-    reloadCards();
-    // changeCompletionClass(id);
+$('.save-btn').on('click', createToDo);
+
+$('.bottom-section').on('keyup', '.todo-body', editBody);
+
+$('.bottom-section').on('keyup', '.todo-title', editTitle);
+
+$('.bottom-section').on('click', '.up-vote-button', upVote);
+
+$('.bottom-section').on('click', '.down-vote-button', downVote);
+
+$('.search-bar').on('keyup', searchTodo);
+
+$('.todo-box').on('click', '.complete', changeCompletion)
+
+$('#show-completed-btn').on('click', showCompletedToDos)
+
+$('#show-all-btn').on('click', resetCards)
+
+$("#importance-filter").on('change', selectImportance) 
+
+$('.bottom-section').on('click', '.delete-button', deleteCard)
+
+$('#title-input, #body-input').on('keyup', enableSave);
+
+
+$(document).ready(function() {
+	reloadCards();
 });
 
 
+function resetCards() {
+	reloadCards();
+	var dropDown = document.getElementById("importance-filter");
+	dropDown.selectedIndex = 0;
+}
+
 function reloadCards () {
 	for(var i in localStorage) {
-	newCard(JSON.parse(localStorage[i]))
+		newCard(JSON.parse(localStorage[i]))
 	}
-	
 }
-	
+
 function showTenCards(){
-	var $ideaCard = $('.idea-card')
-	$ideaCard.each(function(index){
+	var $toDoCard = $('.todo-card')
+	$toDoCard.each(function(index){
 		if (index >= 10){
-		($($ideaCard[index]).hide())
+			($($toDoCard[index]).hide())
 		}
 	})
 }
 
 
-/*Store New Idea to Local Storage from Inputs*/
 function pullFromStorage(id){
 	var uniqueCard = JSON.parse(localStorage.getItem(id));
 	return uniqueCard;
 }
 
-
-function storeIdea (card) {
+function storeTodo (card) {
 	localStorage.setItem(card.id, JSON.stringify(card));
 }
 
-////*EVENT LISTENERS*////
 
-/*Delete Card Button*/
-$('.bottom-section').on('click', '.delete-button', function(){
+function deleteCard() {
 	$(this).closest('article').remove();
 	var getId = $(this).closest('article').attr('id');
 	localStorage.removeItem(getId);
-});
+}
 
-function Idea (title, body) {
+
+function enableSave() {
+
+  if($('#title-input').val() !== "" && $('#body-input').val() !== "") {
+    $('#save').removeAttr('disabled');
+  } else {
+    $('#save').attr('disabled', true);
+  }
+}
+
+function Todo (title, body) {
 	this.title = title;
 	this.body = body; 
 	this.status = 'Normal'; 
@@ -51,41 +85,44 @@ function Idea (title, body) {
 	this.completion = false;
 }
 
-$('.save-btn').on('click', function(event){
+
+	
+function createToDo(){
 	event.preventDefault();
 	var title = $('#title-input').val();
 	var body = $('#body-input').val();
 	var status = 'Normal';
-	var anotherIdea = new Idea (title, body, status);
-	newCard(anotherIdea);
-	storeIdea(anotherIdea);
-	clearInput();	
-});
+	var anotherTodo = new Todo (title, body, status);
+	newCard(anotherTodo);
+	storeTodo(anotherTodo);
+	clearInput();
+	enableSave();	
+};
 
 
 function editBody(event){
-var id = ($(this).closest('.todo-card').attr('id'));
-if (event.keyCode === 13) {
-	event.preventDefault();
-	this.blur();
-}
-updateStorage(id, 'body', $(this).text());
+	var id = ($(this).closest('.todo-card').attr('id'));
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		this.blur();
+	}
+	updateStorage(id, 'body', $(this).text());
 }
 
 
 function editTitle(event){
-var id = ($(this).closest('.todo-card').attr('id'));
-if (event.keyCode === 13) {
-	event.preventDefault();
-	this.blur();
-}
-updateStorage(id, 'title', $(this).text());
+	var id = ($(this).closest('.todo-card').attr('id'));
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		this.blur();
+	}
+	updateStorage(id, 'title', $(this).text());
 
 }
 
 function downVote() {
 	var $qualitySpan = $(this).siblings('.todo-rank');
-	var $domCard = $(this).closest('.idea-card');
+	var $domCard = $(this).closest('.todo-card');
 	var previousQuality = $qualitySpan.text();
 	$qualitySpan.text(changeRank('down',$qualitySpan.text())); 
 	updateStorage($domCard.attr('id'), 'status', $qualitySpan.text());
@@ -93,7 +130,7 @@ function downVote() {
 
 }
 
-	
+
 function upVote() {
 
 	var $qualitySpan = $(this).siblings('.todo-rank');
@@ -107,14 +144,12 @@ function upVote() {
 
 
 function changeStatusClass ($card, status, previous) {
-
-
 	$card.removeClass(previous).addClass(status)
 }
 
 
 
-function searchIdea () {
+function searchTodo () {
 	var userInput = $(this).val();
 	$('.todo-card').each(function(index, card){
 		if ($(this).children('.todo-title').text().toLowerCase().includes(userInput.toLowerCase()) || $(this).children('.todo-body').text().toLowerCase().includes(userInput.toLowerCase())) {
@@ -128,29 +163,25 @@ function searchIdea () {
 
 
 function clearInput() {
-  $('#title-input').val("");
-  $('#body-input').val("");
+	$('#title-input').val("");
+	$('#body-input').val("");
 }
 
-function newCard(idea) {
-	var classes = `todo-card ${idea.status}`
-	if (idea.completion){
+function newCard(todo) {
+	var classes = `todo-card ${todo.status}`
+	if (todo.completion){
 		classes = classes + ' completed-task hide-completed-task'
-
 	}
 
 	$(".todo-box").prepend( `
-		<article id=${idea.id} class='${classes}'>
-			<h3 class="todo-title" contenteditable=true >${idea.title}<span class="delete-button" ></span></h3>
-			<p class="todo-body" contenteditable=true >
-				${idea.body}
-			</p>
+		<article id=${todo.id} class='${classes}'>
+			<h3 class="todo-title" contenteditable=true >${todo.title}<span class="delete-button" ></span></h3>
+			<p class="todo-body" contenteditable=true > ${todo.body} </p>
 			<p class="quality"><span class = "up-vote-button card-button"></span>
-			<span class= "down-vote-button card-button"></span>Importance: <span class="todo-rank">${idea.status}</span><button class="complete">Completed Task</button></p>
-			
+			<span class= "down-vote-button card-button"></span>Importance: <span class="todo-rank">${todo.status}</span><button class="complete">Completed Task</button></p>
 		</article>
 		`
-	);
+		);
 	showTenCards()	
 }
 
@@ -169,157 +200,116 @@ function changeRank(direction, currentRank) {
 }
 
 
-
-
-
-
-
 function changeCompletion (id){
 	event.preventDefault();
 	var getId = $(this).closest('article').attr('id');
 	var object = pullFromStorage(getId);	
-	var currentIdeaBox = $(event.target).closest(".todo-card");
+	var currentTodoBox = $(event.target).closest(".todo-card");
 	if (object.completion === true){
 		object.completion = false;
-		currentIdeaBox.removeClass('completed-task hide-completed-task')
+		currentTodoBox.removeClass('completed-task hide-completed-task')
 	}
 	else if (object.completion===false){
 		object.completion = true;
-		currentIdeaBox.addClass('completed-task hide-completed-task');
+		currentTodoBox.addClass('completed-task hide-completed-task');
 	}
 	localStorage.setItem(getId,JSON.stringify(object));
-	// changeCompletionClass(getId);
-}
+	
+};
 
 
 function changeCompletionClass(getId){
 	var getId = $(this).closest('article').attr('id');
 	var object = pullFromStorage(getId);
-	var currentIdeaBox = $(event.target).closest(".todo-card");
-		if (object.completion === true){
-		currentIdeaBox.addClass('completed-task')
+	var currentTodoBox = $(event.target).closest(".todo-card");
+	if (object.completion === true){
+		currentTodoBox.addClass('completed-task')
 	}
-		else if (object.completion === false){
-			currentIdeaBox.removeClass('completed-task')
-		}
+	else if (object.completion === false){
+		currentTodoBox.removeClass('completed-task')
+	}
 };
 
 function updateStorage(id, property, value){
 	var storedObject = pullFromStorage(id);
 	storedObject[property] = value;
-	storeIdea(storedObject);
+	storeTodo(storedObject);
 }
 
-function showCompletedToDos(idea){
+function showCompletedToDos(todo){
 	var completedCards = $('.completed-task')
 	completedCards.toggleClass('hide-completed-task')
 	
 }
 
-function showNormal () {
-var $allCards = $('.todo-card');
-	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("Normal")) {
-	}else{
-		($($allCards[i]).hide());
-	}
-	}
-}
-
-
-
-
-//$( "#mydiv" ).hasClass( "foo" )
-
-
-
-
-$('.bottom-section').on('keyup', '.todo-body', editBody);
-
-$('.bottom-section').on('keyup', '.todo-title', editTitle);
-
-$('.bottom-section').on('click', '.up-vote-button', upVote);
-
-$('.bottom-section').on('click', '.down-vote-button', downVote);
-
-$('.search-bar').on('keyup', searchIdea);
-
-$('.todo-box').on('click', '.complete', changeCompletion)
-
-$('#show-completed-btn').on('click', showCompletedToDos)
-
-$('#show-all-btn').on('click', reloadCards)
-
-$("#importance-filter").on('change', selectImportance) 
-
 function selectImportance () {
 	if ((this).value === "4") {
 		showNormal ();
 	} else if 
-		((this).value === "3") {
+	((this).value === "3") {
 		showLow();
 	}else if 
-		((this).value === "2") {
+	((this).value === "2") {
 		showNone();
 	} else if 
-		((this).value === "5") {
+	((this).value === "5") {
 		showHigh();
 	} else if 
-		((this).value === "6") {
+	((this).value === "6") {
 		showCritical();
 	} else {
 		showAll();
 	}
 }
 
+function showNormal () {
+	var $allCards = $('.todo-card');
+	for (var i = 0 ; i < $allCards.length ; i++ ) {
+		if ($($allCards[i]).hasClass("Normal")) {
+		}else{
+			($($allCards[i]).hide());
+		}
+	}
+}
 
 function showLow () {
-var $allCards = $('.todo-card');
+	var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("Low")) {
-	}else{
-		($($allCards[i]).hide());
-	}
+		if ($($allCards[i]).hasClass("Low")) {
+		}else{
+			($($allCards[i]).hide());
+		}
 	}
 }
 
-function showAll () {
-var $allCards = $('.todo-card');
-	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("All")) {
-	}else{
-		console.log('hidden cards')
-		// ($($allCards[i]).hide());
-	}
-	}
-}
 
 function showHigh () {
-var $allCards = $('.todo-card');
+	var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("High")) {
-	}else{
-		($($allCards[i]).hide());
-	}
+		if ($($allCards[i]).hasClass("High")) {
+		}else{
+			($($allCards[i]).hide());
+		}
 	}
 }
+
 function showNone () {
-var $allCards = $('.todo-card');
+	var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("None")) {
-	}else{
-		($($allCards[i]).hide());
-	}
+		if ($($allCards[i]).hasClass("None")) {
+		}else{
+			($($allCards[i]).hide());
+		}
 	}
 }
 
 function showCritical () {
-var $allCards = $('.todo-card');
+	var $allCards = $('.todo-card');
 	for (var i = 0 ; i < $allCards.length ; i++ ) {
-	if ($($allCards[i]).hasClass("Critical")) {
-	}else{
-		($($allCards[i]).hide());
-	}
+		if ($($allCards[i]).hasClass("Critical")) {
+		}else{
+			($($allCards[i]).hide());
+		}
 	}
 }
 
