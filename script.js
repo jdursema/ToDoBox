@@ -23,6 +23,8 @@ $('.bottom-section').on('click', '.delete-button', deleteCard)
 
 $('#title-input, #body-input').on('keyup', enableSave);
 
+$('#show-more-btn').on('click', showAllCards);
+
 
 $(document).ready(function() {
 	reloadCards();
@@ -30,7 +32,7 @@ $(document).ready(function() {
 
 
 function resetCards() {
-	reloadCards();
+	showAllCards();
 	var dropDown = document.getElementById("importance-filter");
 	dropDown.selectedIndex = 0;
 }
@@ -46,6 +48,15 @@ function showTenCards(){
 	$toDoCard.each(function(index){
 		if (index >= 10){
 			($($toDoCard[index]).hide())
+		}
+	})
+}
+
+function showAllCards(){
+	var $toDoCard = $('.todo-card')
+	$toDoCard.each(function(index){
+		if (index <= $toDoCard.length){
+			($($toDoCard[index]).show())
 		}
 	})
 }
