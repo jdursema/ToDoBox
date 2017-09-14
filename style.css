@@ -95,7 +95,7 @@ article {
 	margin-right: 20px;
 }
 
-.idea-body {
+.todo-body {
 	color: #939598;
 	font-size: 17px;
 	line-height: 130%;
@@ -103,7 +103,7 @@ article {
 	text-align: left;
 }
 
-.idea-card {
+.todo-card {
 	border-bottom: 2px solid #D1D3D4;
 	width: 40%;
 	margin-left: auto;
@@ -111,12 +111,12 @@ article {
 
 }
 
-.idea-rank {
+.todo-rank {
 	margin-left: 0.3em;
 	width: 15%;
 }
 
-.idea-title {
+.todo-title {
 	font-size: 24px;
 	margin: 20px 2px;
 	text-align: left;
@@ -170,7 +170,7 @@ article {
 		width: 85%;
 	}
 
-	.idea-card{
+	.todo-card{
 		width: 85%;
 	}
 
@@ -199,27 +199,16 @@ article {
 }
 
 
-@media screen and (max-width:750px) {
-/*	article {
-		margin: 10px 10%;
-		width: 85%;
-	}
-
-	.main-inputs {
-		margin: 10px 10%;
-		width: 85%;
-		/*background-color: magenta;*/
-	}
-}*/*/
-
-/*@media screen and (max-width:500px) {
+/*@media screen and (max-width:750px) {
 	article {
-		margin: 10px 5%;
-		width: 90%;
+		margin: 10px 10%;
+		width: 85%;
 	}
 
 	.main-inputs {
-	/*	margin: 10px 5%;
-		width: 90%;
+		margin: 10px 10%;
+		width: 85%;
+		/*background-color: magenta;
 	}
-}*/
+}*//*/
+
